@@ -12,7 +12,7 @@ endif
 BUILD=./build
 SRCDIR = .
 
-TARGET = $(BUILD)/DPasm
+TARGET = $(BUILD)/muzasm
 
 INC_DIRS := ./
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
