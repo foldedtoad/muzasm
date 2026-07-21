@@ -5,4 +5,4 @@ rm -rf ./output
 FILE="/home/robin/MUZ-Workshop/MUZ/muzasm_linux/tests/Instructions.asm"
 
 # Invoke assembler...
-../build/muzasm -l listing.txt -m memory.txt -h IntelHex.hex -od output -f $FILE
+../build/muzasm -l listing.txt -m memory.txt -h IntelHex.hex --trace --log log.txt -od output -f $FILE

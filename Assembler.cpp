@@ -1311,11 +1311,11 @@ namespace MUZ {
 		SourceFile* sourcefile = m_files.at(codeline.includefile);
 		m_status.curfile = codeline.includefile;
 	
-		//if (m_status.trace) printf("File: %s\n", sourcefile->filename.c_str());
+		if (m_status.trace) printf("File: %s\n", sourcefile->filename.c_str());
 	
 		// now reassemble line by line
 		for (CodeLine& cl : sourcefile->lines) {
-			//if (m_status.trace) printf("[%ld] %s\n", cl.line, cl.source.c_str());
+			if (m_status.trace) printf("[%ld] %s\n", cl.line, cl.source.c_str());
 			cl.code.clear();
 			cl.as = this;
 			cl.assembled = AssembleCodeLine(cl, msg);

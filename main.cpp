@@ -58,6 +58,9 @@ int main(int argc, const char * argv[]) {
 		} else if ((strcmp(argv[arg], "--hex")==0) || (strcmp(argv[arg], "-h")==0)) {
 			nextParam(arg, argc, argv);
 			as.SetIntelHexFilename(argv[arg]);
+		} else if ((strcmp(argv[arg], "--trace")==0) || (strcmp(argv[arg], "-t")==0)) {
+			nextParam(arg, argc, argv);
+			as.EnableTrace(1);			
 		} else if ((strcmp(argv[arg], "--log")==0)) {
 			nextParam(arg, argc, argv);
 			as.SetLogFilename(argv[arg]);
@@ -70,31 +73,13 @@ int main(int argc, const char * argv[]) {
 		arg += 1;
 	}
 
-#if 1
-	// Optional to envoke tracing
-	as.EnableTrace(1);
-#endif
-
 	// do assembling
-#if 0
-	std::chrono::high_resolution_clock Clock;
-	auto startTime = Clock.now();
-	if ( ! ExistFile(inputFile) ) {
-		printlns("Error 2: missing file %s\n", inputFile.c_str());
-		exit(2);
-	}
-#endif
 	if (! inputFile.empty())
 	try {
 			as.AssembleFile(inputFile, msg);
 		} catch (std::exception &e) {
 			perror(e.what());
 		}
-
-#if 0
-	double elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(Clock.now() - startTime).count() / 1000.0;
-	printf("Assembling took %lf seconds\n", elapsedTime);
-#endif
 
 	return 0;
 }
