@@ -208,13 +208,21 @@ namespace MUZ {
 			
 			// Test as a directive, only for letters
 			Directive* directive = nullptr;
-			if (type == tokenTypeLETTERS || type == tokenTypeDIRECTIVE) {
+
+			// "SET" collides with the Z80/Z180 SET (bit) instruction: the leading dot is
+			// stripped before we get here, so a bare "SET" and a dot-prefixed ".SET" are
+			// indistinguishable by word alone. Only allow the SET *directive* match when
+			// the token was actually dot/hash-prefixed (type is already tokenTypeDIRECTIVE);
+			// a bare tokenTypeLETTERS "SET" must fall through to instruction lookup.
+			bool skipDirectiveMatch = (type == tokenTypeLETTERS) && (to_upper(word) == "SET");
+
+			if (!skipDirectiveMatch && (type == tokenTypeLETTERS || type == tokenTypeDIRECTIVE)) {
 				directive = as->GetDirective(word);
 				if (directive) {
 					type = tokenTypeDIRECTIVE;
 				}
 			}
-			
+
 			// Store token
 			ParseToken token;
 			token.source = word;

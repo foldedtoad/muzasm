@@ -430,9 +430,9 @@ namespace MUZ {
 	bool DirectiveSET::Identify(std::string source)
 	{
 		std::string upper = std::to_upper(source);
+		// WARNING: In the original code, the .SET directive and SET instruction collide.
 		if (upper == ".SET") return errorTypeOK;
-		if (upper == "SET") return errorTypeOK;
-
+		//if (upper == "SET") return errorTypeOK;
 		return false;
 	}
 	
